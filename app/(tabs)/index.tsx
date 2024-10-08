@@ -2,7 +2,7 @@ import ImageViewer from "@/components/ImageViewer";
 import Button from "@/components/UI/Button";
 import { Platform, StyleSheet, View } from "react-native";
 import * as ImagePicker from "expo-image-picker";
-import { useRef, useState } from "react";
+import React, { MutableRefObject, useRef, useState } from "react";
 import IconButton from "@/components/UI/IconButton";
 import CircleButton from "@/components/UI/CircleButton";
 import EmojiPicker from "@/components/EmojiPicker";
@@ -23,7 +23,7 @@ export default function Index() {
   const [pickedEmoji, setPickedEmoji] = useState<string | undefined>(undefined);
   const [status, requestPermission] = usePermissions();
 
-  const imageRef = useRef<View | null>(null);
+  const imageRef = useRef<View | Node | null>(null);
 
   if (status === null) {
     requestPermission();
@@ -73,7 +73,7 @@ export default function Index() {
       }
     } else {
       try {
-        var dataUrl = await domtoimage.toJpeg(imageRef.current, {
+        var dataUrl = await domtoimage.toJpeg(imageRef.current as Node, {
           quality: 1,
           width: 320,
           height: 440,
@@ -91,7 +91,7 @@ export default function Index() {
   return (
     <GestureHandlerRootView style={styles.container}>
       <View
-        ref={imageRef}
+        ref={imageRef as MutableRefObject<View>}
         collapsable={false}
       >
         <ImageViewer
