@@ -1,6 +1,7 @@
 {
   "cli": {
-    "version": ">= 8.0.0"
+    "version": ">= 8.0.0",
+    "appVersionSource": "remote"
   },
 
   "build": {
@@ -9,6 +10,12 @@
       "distribution": "internal",
       "env": {
         "APP_VARIANT": "development"
+      },
+      "android": {
+        "image": "latest"
+      },
+      "ios": {
+        "image": "latest"
       }
     },
 
@@ -19,7 +26,9 @@
       }
     },
 
-    "production": {}
+    "production": {
+      "autoIncrement": "true"
+    }
   },
 
   "submit": {
